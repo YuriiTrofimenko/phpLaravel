@@ -1,10 +1,18 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('menu')
     @parent
 @endsection
 @section('content')
 <div class="row">
-    <div class="col-sm-3 col-md-3 col-lg-3 dleft">
+    <div class="col-sm-3 col-md-3 col-lg-3 pull-left">
+        {!! Form::open(array('action'=>'TopicController@search','class'=>'form')) !!}
+        <div class="input-group">
+            {!! Form::text('searchform', '',array('class'=>'form-control','placeholder'=>'Enter topic'))!!}
+            <span class="input-group-btn">
+                <button class="btn btn-success btn-secondary" type="submit">Search</button>
+            </span>
+        </div>
+        {!! Form::close() !!}
         <ul style="list-style-type:none">
             @foreach($topics as $t)
             <li>

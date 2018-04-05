@@ -5,6 +5,7 @@ namespace larabook\Http\Controllers;
 use Illuminate\Http\Request;
 use larabook\Topic;
 use larabook\Block;
+use Illuminate\Support\Facades\Auth;
 
 class BlockController extends Controller
 {
@@ -25,6 +26,11 @@ class BlockController extends Controller
      */
     public function create()
     {
+        if (!Auth::check())
+        {
+            return redirect('login');
+        }
+        
         $block=new Block;
         $topics=Topic::pluck('topicname','id');
         return view('block.create',

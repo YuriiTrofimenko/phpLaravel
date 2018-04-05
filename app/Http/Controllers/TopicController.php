@@ -5,6 +5,7 @@ namespace larabook\Http\Controllers;
 use Illuminate\Http\Request;
 use larabook\Topic;
 use larabook\Block;
+use Illuminate\Support\Facades\Auth;
 
 class TopicController extends Controller
 {
@@ -29,7 +30,11 @@ class TopicController extends Controller
      */
     public function create()
     {
-        //
+        if (!Auth::check())
+        {
+            return redirect('login');
+        }
+        
         $topic = new Topic;
         return view('topic.create',['topic'=>$topic,'page'=>'AddTopic']);
     }
@@ -119,4 +124,13 @@ class TopicController extends Controller
     {
         //
     }
+    
+    public function search(Request $request) {
+        
+        $search = $request->searchform;
+        $search = '%' . $search . '%';
+        $topics = Topic::where('topicname', 'like', $search)->get();
+        return view('topic.index', ['page' => 'Main Page', 'topics' => $topics, 'id' => 0]);
+    }
+
 }
