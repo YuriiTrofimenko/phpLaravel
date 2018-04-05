@@ -16,5 +16,8 @@ Route::get('/', function () {
 });
 
 Route::get('/test/', function () {
-    echo 'test';;
+    echo 'test';
 });
+
+Route::resource('topic', 'TopicController');
+Route::resource('block','BlockController');
